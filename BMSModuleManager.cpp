@@ -242,7 +242,7 @@ void BMSModuleManager::getAllVoltTemp()
     if (packVolt > highestPackVolt) highestPackVolt = packVolt;
     if (packVolt < lowestPackVolt) lowestPackVolt = packVolt;
 
-    if (digitalRead(13) == LOW) {
+  /*  if (digitalRead(13) == LOW) {
         if (!isFaulted) Logger::error("One or more BMS modules have entered the fault state!");
         isFaulted = true;
     }
@@ -251,6 +251,7 @@ void BMSModuleManager::getAllVoltTemp()
         if (isFaulted) Logger::info("All modules have exited a faulted state");
         isFaulted = false;
     }
+  */
 }
 
 float BMSModuleManager::getPackVoltage()
@@ -462,7 +463,7 @@ void BMSModuleManager::printPackDetails()
     }
 }
 
-void BMSModuleManager::processCANMsg(CAN_FRAME &frame)
+/*void BMSModuleManager::processCANMsg(CAN_FRAME &frame)
 {
     uint8_t battId = (frame.id >> 16) & 0xF;
     uint8_t moduleId = (frame.id >> 8) & 0xFF;
@@ -489,9 +490,11 @@ void BMSModuleManager::processCANMsg(CAN_FRAME &frame)
         else sendCellDetails(moduleId, cellId);
     }
 }
+*/
 
 void BMSModuleManager::sendBatterySummary()
 {
+/* 
     CAN_FRAME outgoing;
     outgoing.id = (0x1BA00000ul) + ((settings.batteryID & 0xF) << 16) + 0xFFFF;
     outgoing.rtr = 0;
@@ -515,11 +518,12 @@ void BMSModuleManager::sendBatterySummary()
     if (avgTemp < 0) avgTemp = 0;
     outgoing.data.byte[7] = avgTemp;
     Can0.sendFrame(outgoing);
+*/
 }
 
 void BMSModuleManager::sendModuleSummary(int module)
 {
-    CAN_FRAME outgoing;
+  /*  CAN_FRAME outgoing;
     outgoing.id = (0x1BA00000ul) + ((settings.batteryID & 0xF) << 16) + ((module & 0xFF) << 8) + 0xFF;
     outgoing.rtr = 0;
     outgoing.priority = 1;
@@ -543,11 +547,12 @@ void BMSModuleManager::sendModuleSummary(int module)
     outgoing.data.byte[7] = avgTemp;
 
     Can0.sendFrame(outgoing);
+    */
 }
 
 void BMSModuleManager::sendCellDetails(int module, int cell)
 {
-    CAN_FRAME outgoing;
+  /*  CAN_FRAME outgoing;
     outgoing.id = (0x1BA00000ul) + ((settings.batteryID & 0xF) << 16) + ((module & 0xFF) << 8) + (cell & 0xFF);
     outgoing.rtr = 0;
     outgoing.priority = 1;
@@ -568,6 +573,7 @@ void BMSModuleManager::sendCellDetails(int module, int cell)
     outgoing.data.byte[7] = 0; //Bit encoded fault data. No definitions for this yet.
 
     Can0.sendFrame(outgoing);
+    */
 }
 
 //The SerialConsole actually sets the battery ID to a specific value. We just have to set up the CAN filter here to
@@ -576,6 +582,5 @@ void BMSModuleManager::setBatteryID()
 {
     //Setup filter for direct access to our registered battery ID
     uint32_t canID = (0xBAul << 20) + (((uint32_t)settings.batteryID & 0xF) << 16);
-    Can0.setRXFilter(0, canID, 0x1FFF0000ul, true);
+  //  Can0.setRXFilter(0, canID, 0x1FFF0000ul, true);
 }
-

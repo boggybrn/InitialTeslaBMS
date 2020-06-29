@@ -1,7 +1,7 @@
 #pragma once
 #include "config.h"
 #include "BMSModule.h"
-#include <due_can.h>
+//#include <due_can.h>
 
 class BMSModuleManager
 {
@@ -20,7 +20,7 @@ public:
     float getPackVoltage();
     float getAvgTemperature();
     float getAvgCellVolt();
-    void processCANMsg(CAN_FRAME &frame);
+//    void processCANMsg(CAN_FRAME &frame);
     void printPackSummary();
     void printPackDetails();
 
