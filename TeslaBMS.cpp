@@ -60,7 +60,7 @@ void loadSettings()
         settings.canSpeed = 500000;
         settings.batteryID = 0x01; //in the future should be 0xFF to force it to ask for an address
         settings.OverVSetpoint = 4.1f;
-        settings.UnderVSetpoint = 2.3f;
+        settings.UnderVSetpoint = 3.1f;
         settings.OverTSetpoint = 65.0f;
         settings.UnderTSetpoint = -10.0f;
         settings.balanceVoltage = 3.9f;

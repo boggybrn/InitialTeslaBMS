@@ -23,6 +23,7 @@ public:
 //    void processCANMsg(CAN_FRAME &frame);
     void printPackSummary();
     void printPackDetails();
+    void printGWizDetails();
 
 private:
     float packVolt;                         // All modules added together
